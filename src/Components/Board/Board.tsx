@@ -1,23 +1,27 @@
-import {useState} from 'react'
-import { grid } from '../../lib/sudokuBuilder.ts'
+import './board.scss'
+import { numberOfBoxes } from '../../lib/sudokuBuilder.ts'
 import Box from '../Box/Box.tsx'
-import {solveSudoku} from "../../lib/sudokuSolver.ts";
+import { CellTypes } from '../../types.ts'
 
-const numberOfBoxes = Array.from({ length: 9 }, (_, i) => i + 1)
+type PropTypes = {
+    update: (c: CellTypes, v: string) => void
+    data: CellTypes[]
+}
 
-export default function Board() {
-    const data = useState(() => grid)
-
+export default function Board(props: PropTypes) {
     return (
         <>
-            <div className="grid-container">
+            <div className="board">
                 {numberOfBoxes.map((num) => (
-                    <div className="grid-item" key={num}>
-                        <Box grid={data} num={num} />
+                    <div className="board__box" key={num}>
+                        <Box
+                            cells={props.data}
+                            update={props.update}
+                            num={num}
+                        />
                     </div>
                 ))}
             </div>
-            <button onClick={() => solveSudoku(data)}>solve</button>
         </>
     )
 }

@@ -1,20 +1,22 @@
+import './cell.scss'
+
 type PropTypes = {
     update: (v: string) => void
     value: string | number
     highlight: boolean
-    status: string
 }
 
 export default function Cell(props: PropTypes) {
     let styles = {}
     if (props.highlight) {
-        styles = {backgroundColor: 'orange'}
+        styles = { backgroundColor: 'orange' }
     }
 
     return (
-        <div className="grid-item" style={styles}>
+        <div className="cell" style={styles}>
             <input
-                type="text"
+                data-testid="cell"
+                type="number"
                 value={props.value}
                 onChange={(e) => props.update(e.target.value)}
             />

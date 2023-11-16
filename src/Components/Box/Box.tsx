@@ -1,16 +1,16 @@
+import './box.scss'
 import Cell from '../Cell/Cell.tsx'
 import { CellTypes } from '../../types.ts'
-import {hasDuplicate} from "../../lib/sudokuSolver.ts";
 
 type PropTypes = {
-    grid: [CellTypes[], (v: CellTypes[]) => void]
+    cells: CellTypes[]
     num: number
+    update: (c: CellTypes, v: string) => void
 }
 export default function Box(props: PropTypes) {
-    const [grid, setGrid] = props.grid
     return (
-        <div className="grid-container">
-            {grid
+        <div className="box">
+            {props.cells
                 .filter((cell) => {
                     return cell.box === props.num
                 })
@@ -19,20 +19,9 @@ export default function Box(props: PropTypes) {
                         key={`box-${props.num}-${i}`}
                         value={cell.value}
                         highlight={cell.userInput}
-                        status={cell.status}
-                        update={(newValue: string) => {
-                            const duplicate = hasDuplicate(grid, cell.index, Number(newValue))
-                            console.log('duplicate', duplicate)
-                            if (duplicate === null) {
-                                const newBoard = [...grid]
-                                newBoard[cell.index].value = newValue === '' ? '' : Number(newValue)
-                                newBoard[cell.index].userInput = !(newValue === '')
-                                // newBoard[cell.index].status = newValue === '' ? '' : 'userInput'
-                                setGrid(newBoard)
-                            } else {
-                                alert(`Number ${newValue} can't be placed in this box`)
-                            }
-                        }}
+                        update={(newValue: string) =>
+                            props.update(cell, newValue)
+                        }
                     />
                 ))}
         </div>

@@ -1,9 +1,9 @@
-import { CellTypes } from '../types.ts'
+import { CellBoxTypes, CellTypes } from '../types.ts'
 
 export const LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
 const LETTERS_OBJ = Object.assign({}, LETTERS)
 
-function getBoxNumber(i: number) {
+function getBoxNumber(i: number): CellBoxTypes {
     const x = (i % 9) + 1
     const y = Math.floor((i % 81) / 9) + 1
 
@@ -23,23 +23,25 @@ function getBoxNumber(i: number) {
         return 7
     } else if (x <= 6 && y <= 9) {
         return 8
-    } else if (x <= 9 && y <= 9) {
-        return 9
     } else {
-        return 0
+        // if (x <= 9 && y <= 9)
+        return 9
     }
 }
 
-export const grid: CellTypes[] = Array(81)
-    .fill({})
-    .map((_, i) => {
-        return {
-            x: LETTERS_OBJ[i % 9],
-            y: Math.floor((i % 81) / 9) + 1,
-            box: getBoxNumber(i),
-            value: '',
-            index: i,
-            userInput: false,
-            status: ''
-        }
-    })
+export function createBoardCells(): CellTypes[] {
+    return Array(81)
+        .fill({})
+        .map((_, i) => {
+            return {
+                x: LETTERS_OBJ[i % 9],
+                y: Math.floor((i % 81) / 9) + 1,
+                box: getBoxNumber(i),
+                value: '',
+                index: i,
+                userInput: false
+            }
+        })
+}
+
+export const numberOfBoxes = Array.from({ length: 9 }, (_, i) => i + 1)

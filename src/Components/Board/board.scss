@@ -1,0 +1,10 @@
+.board {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    border: 1px solid rgba(66, 66, 66, 0.8);
+
+    &__box {
+        background-color: rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(0, 0, 0, 0.8);
+    }
+}
