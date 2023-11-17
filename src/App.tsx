@@ -3,7 +3,7 @@ import Button from './Components/Button/Button.tsx'
 import { useState } from 'react'
 import { createBoardCells } from './lib/sudokuBuilder.ts'
 import { isValid, solveSudoku } from './lib/sudokuSolver.ts'
-import {CellTypes} from "./types.ts";
+import { CellTypes } from './types.ts'
 
 function App() {
     const [board, setBoard] = useState(() => createBoardCells())
@@ -46,7 +46,7 @@ function App() {
                     onClick={() => {
                         const solved = solveSudoku(board)
                         if (solved) {
-                            setBoard([...solved as CellTypes[]])
+                            setBoard([...(solved as CellTypes[])])
                         } else {
                             alert(`Cannot be solved`)
                         }

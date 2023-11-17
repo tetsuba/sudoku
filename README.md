@@ -1,5 +1,6 @@
 # Sudoku Solver
-Solves any valid sudoku puzzle. https://sudoku.com/
+Solves valid sudoku puzzle.
+
 ### Note:
 - Node: 18.18.0
 - Browser: mac Chrome Version 119.0.6045.123
